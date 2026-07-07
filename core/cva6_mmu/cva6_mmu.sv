@@ -103,6 +103,7 @@ module cva6_mmu
     output dcache_req_i_t req_port_o,
 
     // PMP
+
     input riscv::pmpcfg_t [avoid_neg(CVA6Cfg.NrPMPEntries-1):0]                   pmpcfg_i,
     input logic           [avoid_neg(CVA6Cfg.NrPMPEntries-1):0][CVA6Cfg.PLEN-3:0] pmpaddr_i
 );
@@ -172,8 +173,6 @@ module cva6_mmu
 
   logic shared_tlb_access, shared_tlb_miss;
   logic shared_tlb_hit, itlb_req;
-  //logic shared_tlb_lookup_done;
-
   // Assignments
 
   assign itlb_lu_access = icache_areq_i.fetch_req;

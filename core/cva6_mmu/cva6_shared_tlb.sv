@@ -18,7 +18,8 @@
 //              shared TLB sv32 developed by Sebastien Jacq (Thales Research & Technology)
 //              to be used with sv32, sv39 and sv39x4.
 
-/* verilator lint_off WIDTH*/
+/* verilator lint_off WIDTH */
+
 module cva6_shared_tlb #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty,
     parameter type pte_cva6_t = logic,
@@ -97,6 +98,7 @@ module cva6_shared_tlb #(
     logic [HYP_EXT*2:0] v_st_enbl;  // v_i,g-stage enabled, s-stage enabled
     logic is_napot_64k;  // Svnapot: Flag indicating a 64KiB NAPOT page
   } shared_tag_t;
+
   shared_tag_t shared_tag_wr;
   shared_tag_t [SHARED_TLB_WAYS-1:0] shared_tag_rd;
 
@@ -468,6 +470,7 @@ module cva6_shared_tlb #(
   // ------------------
   // Update and Flush
   // ------------------
+
   logic [CVA6Cfg.VpnLen-1:0] vpn_to_store;
   logic [$clog2(CVA6Cfg.SharedTlbDepth)-1:0] vpn_index;
   //flushing signals
@@ -833,3 +836,5 @@ module cva6_shared_tlb #(
     end
   end
 endmodule
+
+/* verilator lint_on WIDTH */
