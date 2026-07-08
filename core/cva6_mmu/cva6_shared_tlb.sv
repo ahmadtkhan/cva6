@@ -519,11 +519,11 @@ module cva6_shared_tlb #(
         end else if (flush_gvma_i) begin
           flush_state_d = FLUSH_READ;
           flush_idx_d = '0;
-          flush_asid_d = asid_to_be_flushed_i;
-          flush_vaddr_d = vaddr_to_be_flushed_i;
+          flush_asid_d = '0;
+          flush_vaddr_d = '0;
           flush_kind_d = FLUSH_GVMA;
-          flush_vmid_d = '0;
-          flush_gpaddr_d = '0;
+          flush_vmid_d = vmid_to_be_flushed_i;
+          flush_gpaddr_d = gpaddr_to_be_flushed_i;
         end
       end
 
@@ -564,6 +564,9 @@ module cva6_shared_tlb #(
       flush_addr_napot_matches = 1'b0;
       upper_levels_match       = 1'b0;
 
+      for (int unsigned level = 0; level < CVA6Cfg.PtLevels; level++) begin
+        flush_vpn_match[level] = flush_vaddr_q[12 + VPN_SEG_W*level +: VPN_SEG_W] == shared_tag_rd[i].vpn[level];
+      end
       //comparing the flush VA with stored VPN level by level_match
       for (int unsigned level = 0; level < CVA6Cfg.PtLevels; level++) begin
         upper_levels_match = 1'b1;

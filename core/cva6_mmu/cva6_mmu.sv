@@ -173,6 +173,7 @@ module cva6_mmu
 
   logic shared_tlb_access, shared_tlb_miss;
   logic shared_tlb_hit, itlb_req;
+
   // Assignments
 
   assign itlb_lu_access = icache_areq_i.fetch_req;
